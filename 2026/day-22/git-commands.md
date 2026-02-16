@@ -40,5 +40,9 @@ git remote -v
 To change or set the origin variable 
 git remote set-url origin "<https or ssh url>"
 
+git clone -> used copy to local from remote repo
+fork -> used to copy from one remote repo to another remote repo
+
+
 
 
