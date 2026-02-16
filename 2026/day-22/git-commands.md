@@ -27,3 +27,18 @@ git branch -> list all the branches availble on the directory
 git switch <branch name> -> switches the mentioned branch name 
 git branch -D <branch name> ->deletes the mentioned branch name 
 
+To clone a repo from remote to local 
+git clone <url>
+
+TP push from local to remote 
+git push origin <branch>
+eg : git push origin main 
+
+To check the varible origin and to which url origin is set 
+git remote -v 
+
+To change or set the origin variable 
+git remote set-url origin "<https or ssh url>"
+
+
+
