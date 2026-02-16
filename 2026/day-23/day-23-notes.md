@@ -5,4 +5,4 @@ A) The main branch always consists of clean , stable production code and thats w
 What is HEAD in Git?
 A)HEAD always points the latest commit in a branch.
 What happens to your files when you switch branches?
-A)
+A) All the committed files will appear in every branch and all the unsaved files in the working directory will appear whenever you switch branches.
