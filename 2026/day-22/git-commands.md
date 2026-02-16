@@ -43,6 +43,9 @@ git remote set-url origin "<https or ssh url>"
 git clone -> used copy to local from remote repo
 fork -> used to copy from one remote repo to another remote repo
 
+git pull orgin < branch name > ---> to sync the changes from remote to local 
+git fetch ----> gets all the  branches from remote to local 
+
 
 
 
