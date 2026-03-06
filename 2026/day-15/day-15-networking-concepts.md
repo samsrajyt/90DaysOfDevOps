@@ -4,6 +4,7 @@
 
 ### Task 1: DNS – How Names Become IPs
 1. Explain in 3–4 lines: what happens when you type `google.com` in a browser?
+
 A. When you type google.com , first the browser checks within the local DNS cache for the IP address of google.com , if it finds it then it sends a http request to the IP address.
 If the local DNS doesnot have the IP address , the browser will query the DNS server  on the internet and the  DNS resolver will looks for the server which has the IP address of google.com and once the IP address is found, it then sends the HTTP request.
 Reference : https://medium.com/@preciousvictory/what-happens-when-you-type-https-www-google-com-30b0115ca1e1
@@ -18,12 +19,16 @@ www.google.com
 3. What are these record types? Write one line each:
    - `A`, `AAAA`, `CNAME`, `MX`, `NS`
 A. A represents an IPv4 address
+
    AAAA represents an IPV6 address
+   
    CNAME represents the domain name is ponting to another domain name
+   
    MX specifies the mail server responsible for recieving email on behalf of the domain
+   
    NS (Name Server) specifies which DNS server is the authoritative source for all DNS records of a given domain
 
-4. Run: `dig google.com` — identify the A record and TTL from the output
+5. Run: `dig google.com` — identify the A record and TTL from the output
 
 <img width="505" height="376" alt="image" src="https://github.com/user-attachments/assets/35eb8404-cbd5-4bac-8a52-152c244305da" />
 
