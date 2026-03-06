@@ -7,8 +7,11 @@
 
 A. When you type google.com , first the browser checks within the local DNS cache for the IP address of google.com , if it finds it then it sends a http request to the IP address.
 If the local DNS doesnot have the IP address , the browser will query the DNS server  on the internet and the  DNS resolver will looks for the server which has the IP address of google.com and once the IP address is found, it then sends the HTTP request.
+
 Reference : https://medium.com/@preciousvictory/what-happens-when-you-type-https-www-google-com-30b0115ca1e1
+
 Local Browser Cache->DNS resolver->Root Server->TLD Server->Authoritative Server
+
 www.google.com
 
 <img width="704" height="297" alt="image" src="https://github.com/user-attachments/assets/90f0d4d9-4a0b-43fc-8a75-1a836ad6e8f2" />
