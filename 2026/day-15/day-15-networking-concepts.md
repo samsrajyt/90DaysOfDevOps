@@ -47,19 +47,12 @@ A. It is a 32 bit address which consists of 4 fields sperated by dit(.).IPV4 con
 2. Difference between **public** and **private** IPs — give one example of each
 A. Public IP are the address which can be accessible from the internet , where as private IP is secure and cannot be accessed from internet.DB is always mapped to a Private IP since it stores all the important information.
 
-Private IP                                                                  Public IP
-
-
-1.Used within  a private network                                            1.Used for communication over the internet 
-
-
-2.Unique within a network                                                   2.Globally Unique
-
-
-3.It needs a NAT to access internet                                         3. Doesnot need a NAT
-
-
-4.Cannot be accessed from internet                                           4. Visible on Internet
+Feature,Private IP Address,Public IP Address
+Scope,Used within a local/private network (LAN).,Used for communication over the public internet (WAN).
+Uniqueness,Unique only within that specific local network.,Globally unique; no two devices can have the same one.
+NAT Requirement,Requires NAT to reach the internet.,Directly routable on the web.
+Visibility,Hidden; cannot be accessed directly from the internet.,Visible; can be reached by any device on the internet.
+Common Examples,"10.0.1.50, 192.168.1.1","172.217.1.1 (Google), 8.8.8.8"
 
 
 
