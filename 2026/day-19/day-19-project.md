@@ -15,3 +15,10 @@
 
 <img width="1176" height="687" alt="image" src="https://github.com/user-attachments/assets/6944d8bb-0bf7-4d1c-b840-8f3436291d1b" />
 
+
+What i learned 
+
+----> How to set up cron jobs 
+----> How to create functions and reuse them 
+----> understood the concept of log rotation and backups
+
