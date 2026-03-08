@@ -34,7 +34,7 @@ fi
 backup_files_list=($(ls -t "$BKP_DIR"/backup*))
 
 for backup in "${backup_files_list[@]:14}"; do 
-		echo "Removing Older files"
+		echo "Removing Older files:$backup"
 		rm $backup
 
 
