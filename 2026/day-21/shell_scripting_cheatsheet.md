@@ -3,10 +3,15 @@ Document the following with short descriptions and examples:
 
 Shebang (#!/bin/bash) — what it does and why it matters
 Any script starts with shebang and its tell the interpreter which shell to use.
+
 Running a script — chmod +x, ./script.sh, bash script.sh
+
 Comments — single line (#) and inline (starts with <<< keyword and end keyword)
+
 Variables — declaring, using, and quoting ($VAR, "$VAR", '$VAR')
+
 Reading user input — read -p " ...Comments....  "
+
 Command-line arguments — $0, $1, $#, $@, $?
 $0 ---> refers to the name of the script
 $1 ---> the first argument 
@@ -17,6 +22,7 @@ $? ---> Exit code of the last command executed
 
 
 String comparisons — =, !=, -z, -n
+
 = : checks if two strings are equal 
 != : checks if two strings are not equal 
 -z : checks if the string is empty 
