@@ -73,7 +73,7 @@
 when you delete the .git folder , simply means that the repository is not GIT repo and files will not be tracked further that is version history is lost and you will no longer be able to execute git commands
 
 ->What is the difference between a working directory, staging area, and repository?
-A)
+
 **Working Directory**: This is the directory where all your project code is developed and designed and this is the directory in which GIT was intialized.
 
 **Staging Area**: Staging Area refers to the place where you can add all the final codes to this and then commit them as a final step to save them .Its a kind of draft board where you can add your files to be committed later.
