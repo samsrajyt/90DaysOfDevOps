@@ -18,6 +18,7 @@ In your `devops-git-practice` repo, perform the following:
 1. List all branches in your repo
 
    
+   
 
 2. Create a new branch called `feature-1`
 3. Switch to `feature-1`
