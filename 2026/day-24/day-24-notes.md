@@ -1,9 +1,31 @@
-What is a fast-forward merge?
-This merge happens when there is a commits on the branch to be merged i.e the feature branch and there are no commits on the main branch , it just does a fast forward merge .
+### Task 1: Git Merge — Hands-On
+1. Create a new branch `feature-login` from `main`, add a couple of commits to it
+    
 
 
-When does Git create a merge commit instead?
-When the main branch has a commit/commits that is not present in the feature branch and the branch to be merged also has new commit/commits of its own, then this merge commit occurs that combines the main branch commit and the merged branch commits.
+2. Switch back to `main` and merge `feature-login` into `main`
+3. Observe the merge — did Git do a **fast-forward** merge or a **merge commit**?
+4. Now create another branch `feature-signup`, add commits to it — but also add a commit to `main` before merging
+5. Merge `feature-signup` into `main` — what happens this time?
+6. Answer in your notes:
+   - What is a fast-forward merge?
+   - When does Git create a merge commit instead?
+   - What is a merge conflict? (try creating one intentionally by editing the same line in both branches)
+
+
+
+
+
+
+
+
+
+## What is a fast-forward merge?
+* **This merge happens when there is a commits on the branch to be merged i.e the feature branch and there are no commits on the main branch , it just does a fast forward merge.**
+
+
+## When does Git create a merge commit instead?
+* **When the main branch has a commit/commits that is not present in the feature branch and the branch to be merged also has new commit/commits of its own, then this merge commit occurs that          combines the main branch commit and the merged branch commits.**
 when both the branches have a seperate history of commits then a merge commit occurs .
 
 
