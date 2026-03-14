@@ -76,7 +76,7 @@ git stash pop stash@{0}
 
 ## Task 5: Cherry Picking
 ### What does cherry-pick do?
-***Cherry pich allows us to apply a specific commit.***
+***Cherry pick allows us to apply a specific commit.***
 
  ***Applies a specific commit from one branch to another and creates a new commit with a new ID.***
 
@@ -86,8 +86,8 @@ git stash pop stash@{0}
 
 ### What can go wrong with cherry-picking?
 
-***merge conflicts if same file was modified.***
-***Commit history confusion because it creates new commit ids.***
+***merge conflicts ***
+***Duplicate Commits because it creates new commit ids.***
 
 
 
