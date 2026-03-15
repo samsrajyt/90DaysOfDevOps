@@ -31,8 +31,8 @@
 |  | `git rebase <branch>` | Reapply commits on top of another branch | `git checkout feature-dashboard`<br>`git rebase main` |
 | **Stash & Cherry Pick** | `git stash` | Save uncommitted changes | `git stash` |
 |  | `git stash list` | List stashed changes | `git stash list` |
-|  | `git stash pop` | Apply stashed changes & remove from stash | `git stash pop` |
-|  | `git stash apply <stash>` | Apply stashed changes without removing | `git stash apply stash@{1}` |
+|  | `git stash pop` | pops out stashed changes & remove from stash | `git stash pop` |
+|  | `git stash apply <stash>` | pops out stashed changes & keeps a copy in the stash| `git stash apply stash@{1}` |
 |  | `git cherry-pick <commit>` | Apply specific commit from another branch | `git cherry-pick <commit-hash>` |
 | **Reset & Revert** | `git reset --soft HEAD~1` | Undo commit, keep changes staged | `git reset --soft HEAD~1` |
 |  | `git reset --mixed HEAD~1` | Undo commit, unstage changes | `git reset --mixed HEAD~1` |
