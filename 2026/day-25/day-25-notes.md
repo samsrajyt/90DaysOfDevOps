@@ -122,7 +122,7 @@ Developer 3  ● (Merge)
 
 
 ### Which strategy would you use for a startup shipping fast?
-    **Github Flow**
+    **Trunk Based**
 ### Which strategy would you use for a large team with scheduled releases?
     **Git Flow**
 ### Which one does your favorite open-source project use? (check any repo on GitHub)
