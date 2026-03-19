@@ -88,4 +88,19 @@ Practice and document these:
 
 7. **Rebuild** images if you make a change
 
+docker compose up --build
+
+
+---
+
+### Task 5: Environment Variables
+1. Add environment variables directly in your `docker-compose.yml`
+2. Create a `.env` file and reference variables from it in your compose file
+
+   ![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/images/Screenshot%202026-03-20%20020526.png)
+   
+3. Verify the variables are being picked up
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/images/Screenshot%202026-03-20%20020734.png)
+
 
