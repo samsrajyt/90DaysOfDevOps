@@ -58,4 +58,34 @@ Start it, access WordPress in your browser, and set it up.
 ![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/images/Screenshot%202026-03-20%20005050.png)
 ![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/images/Screenshot%202026-03-20%20005107.png)
 
+---
+### Task 4: Compose Commands
+Practice and document these:
+1. Start services in **detached mode**
+
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/images/Screenshot%202026-03-20%20012522.png)
+
+2. View running services
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/images/Screenshot%202026-03-20%20015752.png)
+
+3. View **logs** of all services
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/images/Screenshot%202026-03-20%20012829.png)
+
+4. View logs of a **specific** service
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/images/Screenshot%202026-03-20%20013242.png)
+
+5. **Stop** services without removing
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/images/Screenshot%202026-03-20%20013804.png)
+
+6. **Remove** everything (containers, networks)
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/images/Screenshot%202026-03-20%20014010.png)
+
+7. **Rebuild** images if you make a change
+
 
