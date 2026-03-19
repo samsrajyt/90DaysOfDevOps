@@ -44,11 +44,18 @@ They should:
 
 Start it, access WordPress in your browser, and set it up.
 
+[docker-compose.yaml](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/wordpress/docker-compose.yaml)
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/images/Screenshot%202026-03-20%20001944.png)
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/images/Screenshot%202026-03-20%20001524.png)
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/images/Screenshot%202026-03-20%20001840.png)
+
+
 **Verify:** Stop and restart with `docker compose down` and `docker compose up` — is your WordPress data still there?
 
-![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/images/Screenshot%202026-03-19%20181321.png)
-
-![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/images/Screenshot%202026-03-19%20181447.png)
-
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/images/Screenshot%202026-03-20%20005050.png)
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-33/images/Screenshot%202026-03-20%20005107.png)
 
 
