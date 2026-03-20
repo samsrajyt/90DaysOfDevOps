@@ -136,3 +136,24 @@ Write a manifest for a third pod with at least 3 labels (app, environment, team)
 ![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-51/images/Screenshot%202026-03-20%20190514.png)
 
 [nginx-pod-prod.yaml](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-51/manifest-yaml-files/nginx-pod-prod.yaml)
+
+
+---
+
+### Task 6: Clean Up
+Delete all the pods you created:
+
+```bash
+# Delete by name
+kubectl delete pod nginx-pod
+kubectl delete pod busybox-pod
+kubectl delete pod redis-pod
+
+# Or delete using the manifest file
+kubectl delete -f nginx-pod.yaml
+
+# Verify everything is gone
+kubectl get pods
+```
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-51/images/Screenshot%202026-03-20%20193838.png)
