@@ -105,19 +105,31 @@ Labels are how Kubernetes organizes and selects resources. You added labels in y
 # List all pods with their labels
 kubectl get pods --show-labels
 
+```
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-51/images/Screenshot%202026-03-20%20183346.png)
+
+```bash
 # Filter pods by label
 kubectl get pods -l app=nginx
 kubectl get pods -l environment=dev
+
 
 # Add a label to an existing pod
 kubectl label pod nginx-pod environment=production
 
 # Verify
 kubectl get pods --show-labels
+```
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-51/images/Screenshot%202026-03-20%20183553.png)
 
+
+```bash
 # Remove a label
 kubectl label pod nginx-pod environment-
 ```
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-51/images/Screenshot%202026-03-20%20183941.png)
+
 
 Write a manifest for a third pod with at least 3 labels (app, environment, team). Apply it and practice filtering.
 
