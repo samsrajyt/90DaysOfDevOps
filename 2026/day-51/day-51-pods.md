@@ -133,4 +133,6 @@ kubectl label pod nginx-pod environment-
 
 Write a manifest for a third pod with at least 3 labels (app, environment, team). Apply it and practice filtering.
 
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-51/images/Screenshot%202026-03-20%20190514.png)
 
+[nginx-pod-prod.yaml](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-51/manifest-yaml-files/nginx-pod-prod.yaml)
