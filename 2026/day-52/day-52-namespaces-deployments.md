@@ -86,3 +86,64 @@ Notice that `kubectl get pods` without `-n` only shows the `default` namespace. 
 
 `kubectl get pods ` doesnot show the pods which were created.
 `kubectl get pods -A` shows all the pods running in all namespaces.
+
+
+
+---
+
+### Task 3: Create Your First Deployment
+A Deployment tells Kubernetes: "I want X replicas of this Pod running at all times." If a Pod crashes, the Deployment controller recreates it automatically.
+
+Create a file `nginx-deployment.yaml`:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: dev
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.24
+        ports:
+        - containerPort: 80
+```
+
+Key differences from a standalone Pod:
+- `kind: Deployment` instead of `kind: Pod`
+- `apiVersion: apps/v1` instead of `v1`
+- `replicas: 3` tells Kubernetes to maintain 3 identical pods
+- `selector.matchLabels` connects the Deployment to its Pods
+- `template` is the Pod template — the Deployment creates Pods using this blueprint
+
+Apply it:
+```bash
+kubectl apply -f nginx-deployment.yaml
+```
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-52/images/Screenshot%202026-03-20%20212825.png)
+
+Check the result:
+```bash
+kubectl get deployments -n dev
+kubectl get pods -n dev
+```
+
+
+You should see 3 pods with names like `nginx-deployment-xxxxx-yyyyy`.
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-52/images/Screenshot%202026-03-20%20213111.png)
+
+**Verify:** What do the READY, UP-TO-DATE, and AVAILABLE columns mean in the deployment output?
+
