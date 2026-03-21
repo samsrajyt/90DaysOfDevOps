@@ -147,3 +147,58 @@ You should see 3 pods with names like `nginx-deployment-xxxxx-yyyyy`.
 
 **Verify:** What do the READY, UP-TO-DATE, and AVAILABLE columns mean in the deployment output?
 
+
+
+---
+
+### Task 4: Self-Healing — Delete a Pod and Watch It Come Back
+This is the key difference between a Deployment and a standalone Pod.
+
+```bash
+# List pods
+kubectl get pods -n dev
+
+# Delete one of the deployment's pods (use an actual pod name from your output)
+kubectl delete pod <pod-name> -n dev
+
+# Immediately check again
+kubectl get pods -n dev
+```
+
+The Deployment controller detects that only 2 of 3 desired replicas exist and immediately creates a new one. The deleted pod is replaced within seconds.
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-52/images/Screenshot%202026-03-21%20173111.png)
+
+
+**Verify:** Is the replacement pod's name the same as the one you deleted, or different?
+
+**Yes the replacement pod has a different name.**
+
+
+
+---
+
+### Task 5: Scale the Deployment
+Change the number of replicas:
+
+```bash
+# Scale up to 5
+kubectl scale deployment nginx-deployment --replicas=5 -n dev
+kubectl get pods -n dev
+
+# Scale down to 2
+kubectl scale deployment nginx-deployment --replicas=2 -n dev
+kubectl get pods -n dev
+```
+
+Watch how Kubernetes creates or terminates pods to match the desired count.
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-52/images/Screenshot%202026-03-21%20173552.png)
+
+You can also scale by editing the manifest — change `replicas: 4` in your YAML file and run `kubectl apply -f nginx-deployment.yaml` again.
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-52/images/Screenshot%202026-03-21%20174027.png)
+
+**Verify:** When you scaled down from 5 to 2, what happened to the extra pods?
+
+
