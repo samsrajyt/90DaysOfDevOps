@@ -200,5 +200,55 @@ You can also scale by editing the manifest — change `replicas: 4` in your YAML
 ![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-52/images/Screenshot%202026-03-21%20174027.png)
 
 **Verify:** When you scaled down from 5 to 2, what happened to the extra pods?
+**The other pods are deleted.**
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-52/images/Screenshot%202026-03-21%20204718.png)
+
+
+
+---
+
+### Task 6: Rolling Update
+Update the Nginx image version to trigger a rolling update:
+
+```bash
+kubectl set image deployment/nginx-deployment nginx=nginx:1.25 -n dev
+```
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-52/images/Screenshot%202026-03-21%20214340.png)
+
+
+Watch the rollout in real time:
+```bash
+kubectl rollout status deployment/nginx-deployment -n dev
+```
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-52/images/Screenshot%202026-03-21%20214511.png)
+
+Kubernetes replaces pods one by one — old pods are terminated only after new ones are healthy. This means zero downtime.
+
+Check the rollout history:
+```bash
+kubectl rollout history deployment/nginx-deployment -n dev
+```
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-52/images/Screenshot%202026-03-21%20214712.png)
+
+Now roll back to the previous version:
+```bash
+kubectl rollout undo deployment/nginx-deployment -n dev
+kubectl rollout status deployment/nginx-deployment -n dev
+```
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-52/images/Screenshot%202026-03-21%20214853.png)
+
+Verify the image is back to the previous version:
+```bash
+kubectl describe deployment nginx-deployment -n dev | grep Image
+```
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-52/images/Screenshot%202026-03-21%20214957.png)
+
+**Verify:** What image version is running after the rollback?
+**Its rollec back to nginx:1.24**
+
+---
 
 
