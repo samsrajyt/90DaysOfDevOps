@@ -251,4 +251,25 @@ kubectl describe deployment nginx-deployment -n dev | grep Image
 
 ---
 
+### Task 7: Clean Up
+```bash
+kubectl delete deployment nginx-deployment -n dev
+kubectl delete pod nginx-dev -n dev
+kubectl delete pod nginx-staging -n staging
+kubectl delete namespace dev staging production
+```
+
+Deleting a namespace removes everything inside it. Be very careful with this in production.
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-52/images/Screenshot%202026-03-21%20215506.png)
+
+```bash
+kubectl get namespaces
+kubectl get pods -A
+```
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-52/images/Screenshot%202026-03-21%20215633.png)
+
+**Verify:** Are all your resources gone?
+
+**Yes all the resources are deleted**
 
