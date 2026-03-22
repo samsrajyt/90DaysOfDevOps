@@ -209,6 +209,8 @@ Verify this:
 kubectl describe service web-app-loadbalancer
 ```
 
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-53/images/Screenshot%202026-03-23%20003442.png)
+
 You should see all three: a ClusterIP, a NodePort, and the LoadBalancer configuration.
 
 
