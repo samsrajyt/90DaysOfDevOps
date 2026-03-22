@@ -251,7 +251,13 @@ Only the built-in `kubernetes` service in the default namespace should remain.
 
 ---
 
-1. The Problem: "Ephemeral Pods"Pods are temporary. A Deployment manages them, ensuring that if a Pod crashes, a new one is created. However, that new Pod gets a brand-new IP address.A Service acts as a static "front door." It provides a single, permanent IP address and DNS name that points to a group of Pods. Even if the underlying Pods are replaced by the Deployment, the Service stays the same, routing traffic to whoever is currently "alive."2. Service Types: Manifests & ExplanationsA. ClusterIP (Internal Only)The default type. it provides an IP address that is only reachable from inside the cluster. Use this for databases or internal microservices.
+### The Problem: "Ephemeral Pods"
+
+Pods are temporary. A Deployment manages them, ensuring that if a Pod crashes, a new one is created. However, that new Pod gets a brand-new IP address.A Service acts as a static "front door." It provides a single, permanent IP address and DNS name that points to a group of Pods. Even if the underlying Pods are replaced by the Deployment, the Service stays the same, routing traffic to whoever is currently "alive."
+
+### Service Types: Manifests & Explanations
+
+A. ClusterIP (Internal Only)The default type. it provides an IP address that is only reachable from inside the cluster. Use this for databases or internal microservices.
 ```YAML
 apiVersion: v1
 kind: Service
@@ -294,7 +300,7 @@ spec:
     - port: 80
       targetPort: 80
 ```
-3. Comparison Table
+###Comparison Table
 
 |Feature | ClusterIP |  NodePort | LoadBalancer|
 |--------|-----------|-----------|-------------|
@@ -302,20 +308,35 @@ spec:
 | Use Case  | Databases ,Auth services | Testing,legacy setups | Production web traffic |
 |IP Address    | Virtual Internal IP | Node's Public/Private IP | Cloud Provider Static IP |
 
-4. Kubernetes DNS & Service DiscoveryHow does one Pod find another without knowing the IP? 
+ ### Kubernetes DNS & Service DiscoveryHow does one Pod find another without knowing the IP? 
 
-Kubernetes runs a built-in DNS service (usually CoreDNS).When you create a Service named my-db in a namespace called prod, Kubernetes creates a DNS record. Any Pod in the cluster can simply reach out to:http://my-db.prod.svc.cluster.local
-If the Pod is in the same namespace, it can just use:http://my-db
+**Kubernetes runs a built-in DNS service (usually CoreDNS).
 
-<service-name>.<namespace>.svc.cluster.local
+**When you create a Service named my-db in a namespace called prod, Kubernetes creates a DNS record.**
 
-5. Endpoints: The "Active List"
-A Service is just a policy; the Endpoints (EP) object is the actual implementation. It is a list of the IP addresses of the Pods that passed their health checks.
-Service: "I want to send traffic to Pods with the label app: web."
-Endpoints: "Currently, those Pods are at 10.1.0.5 and 10.1.0.6."
+**Any Pod in the cluster can simply reach out to `http://my-db.prod.svc.cluster.local`**
 
-How to Inspect:To see the mapping of Services to Pod IPs:Bash# Get a summary
+**If the Pod is in the same namespace, it can just use:http://my-db**
+
+`<service-name>.<namespace>.svc.cluster.local`
+
+### Endpoints: The "Active List"
+
+**A Service is just a policy; the Endpoints (EP) object is the actual implementation. It is a list of the IP addresses of the Pods that passed their health checks.**
+
+**Service: "I want to send traffic to Pods with the label app: web."**
+
+**Endpoints: "Currently, those Pods are at 10.1.0.5 and 10.1.0.6."**
+
+###How to Inspect:
+
+To see the mapping of Services to Pod IPs:
+
+```Bash
+
+# Get a summary
 kubectl get endpoints
 
-# See the specific IPs behind a service
+### See the specific IPs behind a service
 kubectl describe endpoints <service-name>
+```
