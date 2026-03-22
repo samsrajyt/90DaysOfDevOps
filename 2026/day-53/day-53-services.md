@@ -176,8 +176,72 @@ curl http://localhost:30080
 
 **Verify:** Can you see the Nginx welcome page from your browser or terminal using the NodePort?
 
+**A. Yes , i can see the html content.**
+
 ---
 
 ![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-53/images/Screenshot%202026-03-22%20221531.png)
 
+---
+
+
+### Task 6: Understand the Service Types Side by Side
+Check all three services:
+
+```bash
+kubectl get services -o wide
+```
+
+Compare them:
+
+| Type | Accessible From | Use Case |
+|------|----------------|----------|
+| ClusterIP | Inside the cluster only | Internal communication between services |
+| NodePort | Outside via `<NodeIP>:<NodePort>` | Development, testing, direct node access |
+| LoadBalancer | Outside via cloud load balancer | Production traffic in cloud environments |
+
+Each type builds on the previous one:
+- LoadBalancer creates a NodePort, which creates a ClusterIP
+- So a LoadBalancer service also has a ClusterIP and a NodePort
+
+Verify this:
+```bash
+kubectl describe service web-app-loadbalancer
+```
+
+You should see all three: a ClusterIP, a NodePort, and the LoadBalancer configuration.
+
+
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-53/images/Screenshot%202026-03-22%20223313.png)
+
+**Verify:** Does the LoadBalancer service also have a ClusterIP and NodePort assigned?
+
+
+**Yes It has a cluster ip and node port assigned**
+
+
+---
+### Task 7: Clean Up
+```bash
+kubectl delete -f app-deployment.yaml
+kubectl delete -f clusterip-service.yaml
+kubectl delete -f nodeport-service.yaml
+kubectl delete -f loadbalancer-service.yaml
+
+kubectl get pods
+kubectl get services
+```
+
+Only the built-in `kubernetes` service in the default namespace should remain.
+
+
+
+---
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-53/images/Screenshot%202026-03-22%20231929.png)
+
+**Verify:** Is everything cleaned up?
+
+**Yes everything is cleaned up.**
 
