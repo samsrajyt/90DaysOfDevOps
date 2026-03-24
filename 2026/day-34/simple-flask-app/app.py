@@ -1,29 +1,49 @@
 import os
-from flask import Flask
+import redis
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 
 app = Flask(__name__)
 
-# Database configuration using environment variables
-# Format: postgresql://username:password@hostname:port/database_name
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
-    'DATABASE_URL', 'postgresql://postgres:postgres@db:5432/flask_db'
-)
+# Config
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://postgres:postgres@db:5432/flask_db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 db = SQLAlchemy(app)
 
+# Redis
+cache = redis.Redis(host=os.getenv('REDIS_HOST', 'redis'), port=6379, decode_responses=True)
+
 @app.route('/')
-def hello_world():
+def index():
+    context = {
+        "db_status": False,
+        "db_version": None,
+        "redis_status": False,
+        "source": "None"
+    }
+
+    # Check Database & Redis
     try:
-        # Simple query to check the connection
-        result = db.session.execute(text('SELECT version();'))
-        version = result.fetchone()[0]
-        return f"<h1>Hello, World!</h1><p>Connected to: {version}</p>"
+        # Check Redis first
+        version = cache.get('db_version')
+        context["redis_status"] = True
+        context["source"] = "Cache"
+
+        if not version:
+            # Fallback to Postgres
+            result = db.session.execute(text('SELECT version();'))
+            version = result.fetchone()[0]
+            cache.setex('db_version', 30, version) # Cache for 30s
+            context["source"] = "Database"
+        
+        context["db_status"] = True
+        context["db_version"] = version
+
     except Exception as e:
-        return f"<h1>Connection Failed</h1><p>{str(e)}</p>"
+        print(f"Error checking status: {e}")
+
+    return render_template('index.html', **context)
 
 if __name__ == '__main__':
-    # In a real container, we'd use a production server like Gunicorn
     app.run(host='0.0.0.0', port=5000)

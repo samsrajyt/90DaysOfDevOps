@@ -9,8 +9,10 @@ services:
     depends_on:
       postgres_db:
         condition: service_healthy
+
   postgres_db:
     image: postgres:latest
+    restart: on-failure
     ports:
     - 5432:5432
     environment:
@@ -26,15 +28,8 @@ services:
       retries: 3
   redis:
     image: redis:7-alpine
+    ports:
+    - 6379:6379
 
 volumes:
   postgres_db:
-
-
-
-
-
-
-
-  redis:
-
