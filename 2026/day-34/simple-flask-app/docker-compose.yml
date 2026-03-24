@@ -1,0 +1,40 @@
+services:
+  app:
+    build: .
+    ports:
+    - 5000:5000
+    environment:
+      DATABASE_URL: postgresql://user:password@postgres_db:5432/flaskapp_db
+      REDIS_HOST: redis
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+  postgres_db:
+    image: postgres:latest
+    ports:
+    - 5432:5432
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: flaskapp_db
+    volumes:
+    - postgres_db:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d flaskapp_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  redis:
+    image: redis:7-alpine
+
+volumes:
+  postgres_db:
+
+
+
+
+
+
+
+  redis:
+
