@@ -68,7 +68,9 @@ Write a `docker-compose.yml` that includes:
      
    - How to run it with Docker Compose
      Clone the repo and add the Docker file and docker-compose file ,run
-   ```bash docker-compose up ```
+   ```bash
+        docker-compose up
+   ```
    
    - Any environment variables needed
      Yes , you need these env variables 
@@ -82,7 +84,9 @@ Write a `docker-compose.yml` that includes:
       OLLAMA_URL
 
      For intergrating AI , once the container is up , ypu need to execute the following command inside the Ollama container
-     ```bash docker exec -it ollama ollama run tinyllama ```
+     ```bash
+     docker exec -it ollama ollama run tinyllama
+     ```
 ---
 
 
