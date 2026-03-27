@@ -1,0 +1,13 @@
+name: Sam
+role: Devops Engineer
+experience_years: 8
+learning: true
+
+tools:
+  - Linux
+  - Shell Scripting
+  - Docker
+  - Github Actions
+  - Terraform
+
+hobbies: [ football, workouts, drums ]

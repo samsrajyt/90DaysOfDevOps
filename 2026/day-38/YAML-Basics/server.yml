@@ -1,0 +1,23 @@
+server:
+  name: nginx
+  ip: localhost
+  port: 8080
+  startup_script: |
+    echo "Starting Nginx"
+    sudo systemctl start nginx
+    echo "Started Nginx"
+      
+
+
+database:
+  host: localhost
+  name: mysql
+  port: 3306
+  credentials:
+    username: myuser
+    password: password
+  database_query: >
+    SELECT user_id,username
+    FROM users
+    WHERE active = 1
+    ORDER BY last_login DESC
