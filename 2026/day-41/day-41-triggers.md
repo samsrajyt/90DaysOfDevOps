@@ -13,3 +13,80 @@
 
 **Verify:** Does it show up on the PR page?
 Nope its not seen on the PR page 
+
+
+---
+
+### Task 2: Scheduled Trigger
+1. Add a `schedule:` trigger to any workflow using cron syntax
+2. Set it to run every day at midnight UTC
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-41/images/Screenshot%202026-03-30%20002503.png)
+
+3. Write in your notes: What is the cron expression for every Monday at 9 AM?
+   cron: '0 9 0 * 1'
+
+---
+
+### Task 3: Manual Trigger
+1. Create `.github/workflows/manual.yml` with a `workflow_dispatch:` trigger
+2. Add an **input** that asks for an `environment` name (staging/production)
+3. Print the input value in a step
+4. Go to the **Actions** tab → find the workflow → click **Run workflow**
+
+
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-41/images/Screenshot%202026-03-30%20012912.png)
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-41/images/Screenshot%202026-03-30%20013118.png)
+
+
+**Verify:** Can you trigger it manually and see your input printed?
+Yes 
+
+---
+
+
+### Task 4: Matrix Builds
+Create `.github/workflows/matrix.yml` that:
+1. Uses a matrix strategy to run the same job across:
+   - Python versions: `3.10`, `3.11`, `3.12`
+2. Each job installs Python and prints the version
+3. Watch all 3 run in parallel
+
+
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-41/images/Screenshot%202026-03-30%20022024.png)
+
+Then extend the matrix to also include 2 operating systems — how many total jobs run now?
+
+**6 jobs are running in total **
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-41/images/Screenshot%202026-03-30%20023546.png)
+
+---
+
+### Task 5: Exclude & Fail-Fast
+1. In your matrix, **exclude** one specific combination (e.g., Python 3.10 on Windows)
+
+
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-41/images/Screenshot%202026-03-30%20025001.png)
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-41/images/Screenshot%202026-03-30%20025209.png)
+
+2. Set `fail-fast: false` — trigger a failure in one job and observe what happens to the rest
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-41/images/Screenshot%202026-03-30%20030207.png)
+
+**The jobs which progressed were completed and the other jobs were cancelled.**
+
+3. Write in your notes: What does `fail-fast: true` (the default) do vs `false`?
+   **If one job failed, all the jobs are cancelled.**
+   
+
+---
+
+
+
+
