@@ -1,0 +1,25 @@
+name: manual dispatch
+on:
+  workflow_dispatch:
+
+    inputs:
+      env:
+        description: 'Environment name'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+  
+
+jobs:
+  env_gather:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: print env
+        run: |
+          echo "The environment is : ${{ github.event.inputs.env }}"
+

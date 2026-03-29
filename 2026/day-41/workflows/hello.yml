@@ -1,0 +1,28 @@
+name: Hello-Workflow
+on:
+  push:
+    branches: [main]
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+
+      - name: Greets
+        run: echo "Hello From Github Actions"
+
+      - name: Current Date and time
+        run: date
+
+      - name: Print name of the branch
+        run: |
+          echo "Current Branch : ${{ github.ref }}"
+
+      - name: List the repository files
+        run: ls ${{ github.workspace }}
+
+      - name: Print the OS of runner
+        run: |
+          echo "OS Info:";hostnamectl|grep "Operating System"

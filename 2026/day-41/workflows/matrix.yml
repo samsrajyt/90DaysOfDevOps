@@ -1,0 +1,28 @@
+name: Matrix Workflow
+
+on:
+  workflow_dispatch:
+
+
+
+jobs:
+  python_version_check:
+    strategy:
+      fail-fast: true
+      matrix:
+        versions: ['3.10','3.11','3.12']
+        os: [windows-latest, ubuntu-latest]
+        exclude: 
+          - versions: 3.11
+            os: windows-latest
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: install python version
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.versions }}
+      - run: python --version
+
+
+
