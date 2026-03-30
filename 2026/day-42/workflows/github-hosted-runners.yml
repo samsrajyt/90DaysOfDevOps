@@ -1,0 +1,28 @@
+name: Github Hosted Runmers
+on:
+  workflow_dispatch:
+
+
+jobs:
+  github_runner:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Collect System Information
+        shell: bash
+        run: |
+          echo "________RUNNER INFO_____________"
+          echo "OS NAME: $RUNNER_OS"
+          echo "Hostname: $(hostname)"
+          echo "Current User: $(whoami)"
+
+
+
+
+
+
+

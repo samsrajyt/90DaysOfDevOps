@@ -1,0 +1,19 @@
+
+name: self-hosted runner
+on:
+  workflow_dispatch:
+
+
+
+jobs:
+  selfhosted-runner:
+    runs-on: [self-hosted, my-linux-runner]
+    steps:
+      - name: Print Self-hosted System Info
+        run: |
+          echo "Hostname: $(hostname)"
+          echo "Pwd: $(pwd)"
+          touch selfhosted.txt
+
+
+

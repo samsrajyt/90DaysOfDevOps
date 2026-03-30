@@ -1,0 +1,45 @@
+name: github-runners
+
+on:
+  workflow_dispatch:
+
+
+
+jobs:
+  ubuntu_runner:
+    runs-on: ubuntu-latest
+    steps:
+      - name: System Info
+        run: |
+          echo "Runner OS is $RUNNER_OS"
+          echo "Hostname: $(hostname)"
+          echo "Current User: $USER"
+
+      - name: pre-installed softwares
+        run: |
+          echo "Docker Version";docker --version
+          echo "Python Version:";python --version
+          echo "Node Version:";node --version
+          echo "Git Version:";git --version
+
+
+
+
+  windows_runner:
+    runs-on: windows-latest
+    steps:
+      - name: System Info
+        run: |
+            echo "Runner OS is ${{ runner.os }}"
+            echo "Hostname";hostname
+            echo "Current User";whoami
+
+
+  macos_runner:
+    runs-on: macos-latest
+    steps: 
+    - name: System Info
+      run: |
+            echo "RUNNER OS is $RUNNER_OS"
+            echo "Hostname";hostname
+            echo "Current User";whoami
