@@ -1,0 +1,29 @@
+name: Job Output
+on:
+  push:
+    branches: [main]
+
+
+
+jobs:
+  get-date:
+    runs-on: ubuntu-latest
+    outputs:
+      date: ${{steps.step1.outputs.date}}
+    steps:
+      - name: System Date
+        id: step1
+        run: |
+          echo "date=$(date)" >> $GITHUB_OUTPUT
+
+  print-date:
+    runs-on: ubuntu-latest
+    needs: get-date
+    steps:
+      - name: Print Date
+        env:
+          output: ${{needs.get-date.outputs.date }}
+
+        run:
+          echo "Date:$output"
+

@@ -1,0 +1,28 @@
+name: Conditionals Workflow
+
+on:
+  push:
+    branches: [main]
+
+
+
+jobs:
+  conditionals:
+    runs-on: ubuntu-latest
+    steps:
+      - name: main branch condition
+        if: ${{ github.ref_name == 'main' }}
+        run: echo "This is steps only runs when there is push on main branch"
+
+
+      - name: run on failure
+        if: ${{ failure() }}
+        run: echo "This step is executed since the previous step failed"
+      
+      - name: This step might fail, but the job will continue
+        run: ./my-script-that-might-fail.sh
+        continue-on-error: true # <--- Applied at the step level 
+
+      - name: runs even if the previous ones failed
+        run: echo "Continuing with the job..."
+

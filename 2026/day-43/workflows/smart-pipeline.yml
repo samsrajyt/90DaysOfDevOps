@@ -1,0 +1,42 @@
+name: Smart Pipeline
+on:
+  push:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v6
+
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+
+      - name: Install Pyhton Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run linters 
+        run: flake8 app.py
+
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: testing
+        run: echo "Testing"
+
+
+
+
+
+
+  summary:
+    needs: [ lint, test ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: which push
+        run: |
+          echo " Push from ${{ github.ref_name }} ${{ github.event_name }}"
+          echo " Commit Message ${{ github.event.commits[0].message }}"
