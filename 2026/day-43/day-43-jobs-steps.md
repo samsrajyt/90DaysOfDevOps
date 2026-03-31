@@ -53,13 +53,15 @@ In a workflow, add:
 ![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-43/images/Screenshot%202026-03-31%20221346.png)
 
 ---
-
+  
 ### Task 5: Putting It Together
 Create `.github/workflows/smart-pipeline.yml` that:
 1. Triggers on push to any branch
 2. Has a `lint` job and a `test` job running in parallel
 3. Has a `summary` job that runs after both, prints whether it's a `main` branch push or a feature branch push, and prints the commit message
 
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-43/images/Screenshot%202026-04-01%20004231.png)
 
 
 
