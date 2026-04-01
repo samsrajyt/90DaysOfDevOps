@@ -1,0 +1,20 @@
+on:
+  workflow_dispatch
+
+
+
+jobs:
+  upload-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: create Test file
+        run: |
+          touch ./prod.log
+
+
+      - name: upload file
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: ./prod.log
+

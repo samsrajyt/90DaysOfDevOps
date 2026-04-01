@@ -1,0 +1,54 @@
+name: Smart Pipeline
+on:
+  push:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v6
+
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+
+      - name: Cache Pip
+        uses: actions/cache@v4
+        with:
+          # Path to the local pip cache on Ubuntu
+          path: ~/.cache/pip
+          # The key is generated based on your requirements file
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          # Allows restoring from a partial match if the exact key isn't found
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+
+      - name: Install Pyhton Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run linters 
+        run: flake8 app.py
+
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: testing
+        run: echo "Testing"
+
+
+
+
+
+
+  summary:
+    needs: [ lint, test ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: which push
+        run: |
+          echo " Push from ${{ github.ref_name }} ${{ github.event_name }}"
+          echo " Commit Message ${{ github.event.commits[0].message }}"
