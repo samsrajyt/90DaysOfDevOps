@@ -30,6 +30,58 @@ Add steps to:
 2. Tag the image as `username/repo:latest` and also `username/repo:sha-<short-commit-hash>`
 3. Push both tags
 
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-45/images/Screenshot%202026-04-02%20012743.png)
+
+
 **Verify:** Go to Docker Hub — is your image there with both tags?
 
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-45/images/Screenshot%202026-04-02%20012801.png)
 
+
+---
+
+### Task 4: Only Push on Main
+Add a condition so the push step only runs on the `main` branch — not on feature branches or PRs.
+
+Test it: push to a feature branch and verify the image is built but NOT pushed.
+
+
+
+Pushing from feature 1 , only image was built and was not pushed
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-45/images/Screenshot%202026-04-02%20031138.png)
+
+No images pushed
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-45/images/Screenshot%202026-04-02%20031410.png)
+
+When pushed from main
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-45/images/Screenshot%202026-04-02%20031601.png)
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-45/images/Screenshot%202026-04-02%20031724.png)
+
+---
+
+### Task 5: Add a Status Badge
+1. Get the badge URL for your `docker-publish` workflow from the Actions tab
+2. Add it to your `README.md`
+3. Push — the badge should show green
+
+
+
+![](https://github.com/samsrajyt/github-actions-practice/actions/workflows/docker-publish.yml/badge.svg)
+
+
+---
+### Task 6: Pull and Run It
+1. On your local machine (or a cloud server), pull the image you just pushed
+2. Run it
+3. Confirm it works
+
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-45/images/Screenshot%202026-04-02%20032739.png)
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-45/images/Screenshot%202026-04-02%20032959.png)
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-45/images/Screenshot%202026-04-02%20033013.png)
+
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-45/images/Screenshot%202026-04-02%20033450.png)
