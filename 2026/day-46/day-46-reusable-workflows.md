@@ -47,3 +47,46 @@ Create `.github/workflows/call-build.yml`:
 
 ![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-46/images/Screenshot%202026-04-03%20015430.png)
 ---
+
+### Task 4: Add Outputs to the Reusable Workflow
+Extend `reusable-build.yml`:
+1. Add an `outputs:` section that exposes a `build_version` value
+2. Inside the job, generate a version string (e.g., `v1.0-<short-sha>`) and set it as output
+3. In your caller workflow, add a second job that:
+   - Depends on the build job (`needs:`)
+   - Reads and prints the `build_version` output
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-46/images/Screenshot%202026-04-03%20170713.png)
+
+
+**Verify:** Does the second job print the version from the reusable workflow?
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-46/images/Screenshot%202026-04-03%20170728.png)
+
+---
+
+### Task 5: Create a Composite Action
+Create a **custom composite action** in your repo at `.github/actions/setup-and-greet/action.yml`:
+1. Define inputs: `name` and `language` (default: `en`)
+2. Add steps that:
+   - Print a greeting in the specified language
+   - Print the current date and runner OS
+   - Set an output called `greeted` with value `true`
+3. Use the composite action in a new workflow with `uses: ./.github/actions/setup-and-greet`
+
+**Verify:** Does your custom action run and print the greeting?
+
+---
+
+### Task 6: Reusable Workflow vs Composite Action
+Fill this in your notes:
+
+| | Reusable Workflow | Composite Action |
+|---|---|---|
+| Triggered by | `workflow_call` | `uses:` in a step |
+| Can contain jobs? | ? | ? |
+| Can contain multiple steps? | ? | ? |
+| Lives where? | ? | ? |
+| Can accept secrets directly? | ? | ? |
+| Best for | ? | ? |
+
+---
