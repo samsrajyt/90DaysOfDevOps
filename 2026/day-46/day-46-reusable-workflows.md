@@ -75,6 +75,8 @@ Create a **custom composite action** in your repo at `.github/actions/setup-and-
 
 **Verify:** Does your custom action run and print the greeting?
 
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-46/images/Screenshot%202026-04-06%20175433.png)
+
 ---
 
 ### Task 6: Reusable Workflow vs Composite Action
@@ -83,10 +85,10 @@ Fill this in your notes:
 | | Reusable Workflow | Composite Action |
 |---|---|---|
 | Triggered by | `workflow_call` | `uses:` in a step |
-| Can contain jobs? | ? | ? |
-| Can contain multiple steps? | ? | ? |
-| Lives where? | ? | ? |
-| Can accept secrets directly? | ? | ? |
-| Best for | ? | ? |
-
+| Can contain jobs? | Yes  | No |
+| Can contain multiple steps? | Yes | Yes |
+| Lives where? | .github/workflows | /.github/actions/name/action.yml |
+| Can accept secrets directly? | Yes(Inherited or explicitly passed)  | Yes(Partially (Passed as inputs/env, not a secrets: block)) |
+| Best for | Standardizing entire CI/CD pipelines across multiple repos. | Wrapping repeated sequences of steps into a single, clean command. |
+| Runner Context | Can define its own runs-on | Inherits the runner from the caller's job |
 ---
