@@ -1,0 +1,40 @@
+name: Custom Composite Actions
+inputs:
+  name:
+    description: takes the name
+    required: true
+        
+  language:
+    description: language perference
+    required: false
+    default: en
+outputs:
+  greeted:
+    value: ${{ steps.greet.outputs.greeted }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Greeting
+      run: |
+        if [ ${{ inputs.language }} == en ]; then
+          echo "Hello, please to meet you"
+        else
+          echo "Namaste, sasriyakal , vanakam , vandanam , vismayam"
+        fi
+      shell: bash
+
+
+    - name: print current date and runner OS
+      run: |
+        echo "Current date:";date
+        echo "Runner OS ${{ runner.os }}"
+      shell: bash
+
+    - name: set an output 
+      id: greet
+      run: |
+        echo "greeted=true" >> $GITHUB_OUTPUT
+      shell: bash
+
+

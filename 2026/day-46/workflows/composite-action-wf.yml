@@ -1,0 +1,23 @@
+on:
+  workflow_dispatch:
+
+
+
+
+jobs:
+  triger-composite-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - id: one
+        uses: ./.github/actions/setup-and-greet/
+        with: 
+          name: Sam
+          language: en 
+
+      - run: echo "Greeted Status= $greeted"
+        shell : bash
+        env: 
+          greeted: ${{steps.one.outputs.greeted}} 
+
+
