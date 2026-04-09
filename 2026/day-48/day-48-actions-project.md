@@ -10,9 +10,9 @@
 4. Add a `README.md` with a project description
 
 ---
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-48/images/Screenshot%202026-04-09%20014333.png)
 
 
-![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-48/images/Screenshot%202026-04-07%20182113.png)
 
 ---
 
@@ -32,8 +32,115 @@ This workflow does NOT deploy — it only builds and tests.
 
 ---
 
+### Task 3: Reusable Workflow — Docker Build & Push
+Create `.github/workflows/reusable-docker.yml`:
+1. Trigger: `workflow_call`
+2. Inputs: `image_name` (string), `tag` (string)
+3. Secrets: `docker_username`, `docker_token`
+4. Steps:
+   - Check out code
+   - Log in to Docker Hub
+   - Build and push the image with the given tag
+   - Set output: `image_url` with the full image path
+
+---
+
+### Task 4: PR Pipeline
+Create `.github/workflows/pr-pipeline.yml`:
+1. Trigger: `pull_request` to `main` (types: `opened`, `synchronize`)
+2. Call the reusable build-test workflow:
+   - Run tests: `true`
+3. Add a standalone job `pr-comment` that:
+   - Runs after the build-test job
+   - Prints a summary: "PR checks passed for branch: `<branch>`"
+4. Do **NOT** build or push Docker images on PRs
+
+**Verify:** Open a PR — does it run tests only (no Docker push)?
+  * yes
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-48/images/Screenshot%202026-04-09%20014746.png)
+
+---
+
+### Task 5: Main Branch Pipeline
+Create `.github/workflows/main-pipeline.yml`:
+1. Trigger: `push` to `main`
+2. Job 1: Call the reusable build-test workflow
+3. Job 2 (depends on Job 1): Call the reusable Docker workflow
+   - Tag: `latest` and `sha-<short-commit-hash>`
+4. Job 3 (depends on Job 2): `deploy` job that:
+   - Prints "Deploying image: `<image_url>` to production"
+   - Uses `environment: production` (set this up in repo Settings → Environments)
+   - Requires manual approval if you've set up environment protection rules
+
+**Verify:** Merge a PR to `main` — does it run tests → build Docker → deploy in sequence?
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-48/images/Screenshot%202026-04-09%20015048.png)
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-48/images/Screenshot%202026-04-09%20015106.png)
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-48/images/Screenshot%202026-04-09%20015223.png)
 
 
-![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-48/images/Screenshot%202026-04-08%20014951.png)
+---
 
-![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-48/images/Screenshot%202026-04-08%20015130.png)
+### Task 6: Scheduled Health Check
+Create `.github/workflows/health-check.yml`:
+1. Trigger: `schedule` with cron `'0 */12 * * *'` (every 12 hours) + `workflow_dispatch` for manual testing
+2. Steps:
+   - Pull your latest Docker image
+   - Run the container in detached mode
+   - Wait 5 seconds, then curl the health endpoint
+   - Print pass/fail based on the response
+   - Stop and remove the container
+3. Add a step that creates a summary using `$GITHUB_STEP_SUMMARY`:
+   ```bash
+   echo "## Health Check Report" >> $GITHUB_STEP_SUMMARY
+   echo "- Image: myapp:latest" >> $GITHUB_STEP_SUMMARY
+   echo "- Status: PASSED" >> $GITHUB_STEP_SUMMARY
+   echo "- Time: $(date)" >> $GITHUB_STEP_SUMMARY
+   ```
+
+   ![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-48/images/Screenshot%202026-04-09%20170849.png)
+
+   ![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-48/images/Screenshot%202026-04-09%20171619.png)
+
+---
+
+
+### Task 7: Add Badges & Documentation
+1. Add status badges for all your workflows to the repo `README.md`
+2. Add a **pipeline architecture diagram** in your notes — draw (or describe) the flow:
+   ```
+   PR opened → build & test → PR checks pass
+   Merge to main → build & test → Docker build & push → deploy
+   Every 12 hours → health check
+   ```
+
+![](https://github.com/samsrajyt/github-actions-capstone/actions/workflows/health-check.yml/badge.svg) ![](https://github.com/samsrajyt/github-actions-capstone/actions/workflows/main-pipeline.yml/badge.svg)![](https://github.com/samsrajyt/github-actions-capstone/actions/workflows/pr-pipeline.yml/badge.svg) 
+
+
+
+### 1. Pull Request Flow (Continuous Integration)
+**Trigger**: When a PR is opened or updated targeting the `main` branch.
+> PR Opened → **Build & Test** → PR Checks Pass
+
+### 2. Main Branch Flow (Continuous Deployment)
+**Trigger**: When code is merged into the `main` branch.
+> Merge to Main → **Build & Test** → **Docker Build & Push** → **Trivy Security Scan** → **Deploy**
+
+### 3. Scheduled Monitoring
+**Trigger**: Every 12 hours via GitHub Actions Cron.
+> Every 12 Hours → **Health Check**
+
+---
+
+## Brownie Points: Add Security to Your Pipeline
+Want to go above and beyond? Add a **DevSecOps** step to your main pipeline:
+1. Add `aquasecurity/trivy-action` after the Docker build step to scan your image for vulnerabilities
+2. Fail the pipeline if any **CRITICAL** severity CVE is found
+3. Upload the scan report as an artifact
+
+This is a preview of what you'll do in depth on **Day 49**. If you get this working today, you're already thinking like a DevSecOps engineer.
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-48/images/Screenshot%202026-04-09%20181951.png)
