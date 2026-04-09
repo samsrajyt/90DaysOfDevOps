@@ -1,0 +1,46 @@
+on:
+  push:
+    branches: [main]
+
+
+jobs:
+  build-and-test:
+    uses: ./.github/workflows/reusable-build-test.yml
+    with:
+      python_version: 3.14
+      run_tests: true
+  
+  generate-sha:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+    steps:
+      - name: tag_name
+        id: tag
+        run: |
+          echo "tag=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
+
+
+  build-and-push:
+    needs: [build-and-test, generate-sha]
+    uses: ./.github/workflows/reusable-docker.yml
+    with:
+      image_name: 'flask-app'
+      tag: sha-${{ needs.generate-sha.outputs.tag }}
+    secrets:
+      docker_username: ${{ vars.DOCKER_USERNAME }}
+      docker_token: ${{ secrets.DOCKER_PASSWORD }}
+
+
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: deploying image
+        run: |
+          echo "Deploying Image: ${{ needs.build-and-push.outputs.image_url }}"
+
+
+
