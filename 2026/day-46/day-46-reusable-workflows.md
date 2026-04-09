@@ -3,16 +3,16 @@
 ### Task 1: Understand `workflow_call`
 Before writing any code, research and answer in your notes:
 1. What is a **reusable workflow**?
-- a single YAML file that can be called by other workflows, allowing you to centralize common processes like CI/CD, eliminate redundant code, and enforce best practices across multiple repositories or projects
+   - a single YAML file that can be called by other workflows, allowing you to centralize common processes like CI/CD, eliminate redundant code, and enforce best practices across multiple              repositories or projects.
 2. What is the `workflow_call` trigger?
-- A trigger which starts the pipeline when called from another workflow.It tells GitHub this file is "callable.
+   - A trigger which starts the pipeline when called from another workflow.It tells GitHub this file is "callable.
   
 3. How is calling a reusable workflow different from using a regular action (`uses:`)?
    - Actions: Usually perform a single discrete task (e.g., uploading an artifact).
    - Reusable Workflows: Can orchestrate an entire deployment process across different environments.
 
 4. Where must a reusable workflow file live?
--  .github/workflows
+   - .github/workflows
 ---
 
 ### Task 2: Create Your First Reusable Workflow
