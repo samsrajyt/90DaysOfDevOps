@@ -1,0 +1,80 @@
+name: Build and Push
+on:
+  workflow_call:
+
+    inputs:
+       image_name:
+         description: 'holds image name'
+         type: string
+         required: true
+
+       tag:
+         description: holds the tag of the image built
+         type: string
+         required: true
+
+    secrets:
+        docker_username:
+          required: true
+        docker_token:
+          required: true
+
+  
+    outputs:
+      image_url:
+        description: "The full image path"
+        value: ${{ jobs.reusable-build-and-push.outputs.image_url }}
+
+
+jobs:
+  reusable-build-and-push:
+    runs-on: ubuntu-latest
+
+    outputs:
+      image_url: ${{ steps.image_id.outputs.image_url }}
+
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+      
+      - run: |
+          echo "Secret is set: ${{ vars.DOCKER_USERNAME != '' }}"
+          echo "Secret is set: ${{ secrets.DOCKER_PASSWORD != '' }}"
+
+      - name: Docker login
+        uses: docker/login-action@v4
+        with:
+          username: ${{ vars.docker_username }}
+          password: ${{ secrets.docker_token }}
+
+      - name: build image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: Dockerfile
+          push: false
+          tags: |
+            ${{ vars.DOCKER_USERNAME }}/${{ inputs.image_name }}:${{ inputs.tag }}
+            ${{ vars.DOCKER_USERNAME }}/${{ inputs.image_name }}:latest
+
+      - name: image url
+        id: image_id
+        run: |
+          echo "image_url=${{ vars.DOCKER_USERNAME }}/${{ inputs.image_name }}:${{ inputs.tag }}" >> $GITHUB_OUTPUT
+
+      - name: Trivy Scan     
+        uses: aquasecurity/trivy-action@0.35.0
+        with:
+          image-ref: ${{ vars.DOCKER_USERNAME }}/${{ inputs.image_name }}:${{ inputs.tag }}
+          format: 'table'
+          output: 'trivy-report.txt'
+          severity: 'CRITICAL,HIGH'
+          exit-code: '0'
+
+
+      - name: Upload Trivy scan report
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-scan-report
+          path: trivy-report.txt
