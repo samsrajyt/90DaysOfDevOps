@@ -8,7 +8,8 @@ Before writing any code, research and answer in your notes:
 - A trigger which starts the pipeline when called from another workflow.It tells GitHub this file is "callable.
   
 3. How is calling a reusable workflow different from using a regular action (`uses:`)?
-   
+   - Actions: Usually perform a single discrete task (e.g., uploading an artifact).
+   - Reusable Workflows: Can orchestrate an entire deployment process across different environments.
 
 4. Where must a reusable workflow file live?
 -  .github/workflows
