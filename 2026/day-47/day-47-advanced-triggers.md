@@ -127,6 +127,17 @@ Create two workflows:
      -f event_type=deploy-request \
      -f client_payload='{"environment":"production"}'
    ```
+Curl Command Used:
+```bash
+curl -L \
+  -X POST \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer ghp_<PAT>" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  https://api.github.com/repos/samsrajyt/github-actions-practice/dispatches \
+  -d '{"event_type":"deploy-request","client_payload":{"environment":"production"}}'
+```
+
 
 ![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-47/images/Screenshot%202026-04-07%20161041.png)
 
