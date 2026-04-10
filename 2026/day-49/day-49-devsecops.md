@@ -91,4 +91,86 @@ Issues Faced:
 I enabled dependency graph for dependencies scan to work.
 ![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-49/images/Screenshot%202026-04-10%20012437.png)
 
-![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-49/images/Screenshot%202026-04-10%20012002.png)
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-49/images/Screenshot%202026-04-10%20180912.png)
+
+
+---
+
+### Task 4: Add Permissions to Your Workflows
+By default, workflows get broad permissions. Lock them down.
+
+Add this block near the top of your workflow files (after `on:`):
+```yaml
+permissions:
+  contents: read
+```
+
+If a workflow needs to comment on PRs, add:
+```yaml
+permissions:
+  contents: read
+  pull-requests: write
+```
+
+Update at least 2 of your existing workflow files with a `permissions` block.
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-49/images/Screenshot%202026-04-10%20155740.png)
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-49/images/Screenshot%202026-04-10%20155915.png)
+
+Write in your notes: 
+
+Why is it a good practice to limit workflow permissions? What could go wrong if a compromised action has write access to your repo?
+
+- It reduces the risk if a workflow or action is compromised.
+
+- If a malicious code is injected into an action which has write access, it could modify your code, steal secrets, push unauthorized changes, or even delete branches—essentially taking control of your repo.
+
+
+
+---
+
+### Task 5: See the Full Secure Pipeline
+Look at what your pipeline does now:
+
+```
+PR opened
+  → build & test
+  → dependency vulnerability check     ← NEW (Day 49)
+  → PR checks pass or fail
+
+Merge to main
+  → build & test
+  → Docker build
+  → Trivy image scan (fail on CRITICAL) ← NEW (Day 49)
+  → Docker push (only if scan passes)
+  → deploy
+
+Always active
+  → GitHub secret scanning              ← NEW (Day 49)
+  → push protection for secrets         ← NEW (Day 49)
+```
+
+Draw this diagram in your notes. You just built a **DevSecOps pipeline** — security is now part of your automation, not an afterthought.
+
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-49/images/Screenshot%202026-04-10%20195741.png)
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-49/images/Screenshot%202026-04-10%20195933.png)  
+
+
+
+### Upload Scan Results to GitHub Security Tab
+Add SARIF output to Trivy and upload it — your scan results will appear in the repo's **Security** tab:
+```yaml
+- uses: aquasecurity/trivy-action@master
+  with:
+    image-ref: 'your-username/your-app:latest'
+    format: 'sarif'
+    output: 'trivy-results.sarif'
+- uses: github/codeql-action/upload-sarif@v3
+  with:
+    sarif_file: 'trivy-results.sarif'
+```
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-49/images/Screenshot%202026-04-10%20200430.png)
