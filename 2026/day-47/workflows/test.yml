@@ -1,0 +1,17 @@
+name: Run Tests
+on:
+  push:
+
+
+jobs:
+  run-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test1
+        run: |
+          echo "Running First check"
+
+
+      - name: Test2
+        run: |
+          echo "Running Second check"

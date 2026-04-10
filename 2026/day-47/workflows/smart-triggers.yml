@@ -1,0 +1,25 @@
+on:
+  push:
+    branches:
+      - main
+      - 'release/*'
+
+    paths:
+      - 'src/**'
+      - 'app/**'
+
+
+jobs:
+  smart-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository 
+        uses: actions/checkout@v6
+
+
+      - name: print message
+        run: |
+          echo "Workflow triggered beacause of change in src or app directory"
+
+
+
