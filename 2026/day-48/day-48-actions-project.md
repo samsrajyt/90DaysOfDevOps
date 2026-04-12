@@ -117,7 +117,8 @@ Create `.github/workflows/health-check.yml`:
    Every 12 hours → health check
    ```
 
-![](https://github.com/samsrajyt/github-actions-capstone/actions/workflows/health-check.yml/badge.svg) ![](https://github.com/samsrajyt/github-actions-capstone/actions/workflows/main-pipeline.yml/badge.svg)![](https://github.com/samsrajyt/github-actions-capstone/actions/workflows/pr-pipeline.yml/badge.svg) 
+![](https://github.com/samsrajyt/github-actions-capstone/actions/workflows/health-check.yml/badge.svg) ![](https://github.com/samsrajyt/github-actions-capstone/actions/workflows/main-pipeline.yml/badge.svg)![](https://github.com/samsrajyt/github-actions-capstone/actions/workflows/pr-pipeline.yml) 
+
 
 
 
