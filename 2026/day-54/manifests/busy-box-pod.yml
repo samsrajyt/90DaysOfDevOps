@@ -1,0 +1,27 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: app-configmap-pod
+spec:
+  containers:
+    - name: test-container
+      image: registry.k8s.io/busybox:1.27.2
+      command: [ "/bin/sh", "-c", '"env" && sleep 3600'] 
+      env:
+        - name: APP_DEBUG
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: APP_DEBUG
+
+        - name: APP_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: APP_ENV
+        - name: APP_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: APP_PORT
+  restartPolicy: Never

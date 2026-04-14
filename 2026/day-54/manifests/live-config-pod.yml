@@ -1,0 +1,18 @@
+kind: Pod
+apiVersion: v1
+metadata: 
+  name: live-config-pod
+spec:
+  containers:
+    - name: my-container
+      image: busybox:1.37
+      command: [ "/bin/sh", "-c", "while true; do echo 'Reading Config:'; cat /config/message;echo ''; sleep 5; done" ]
+      volumeMounts:
+        - name: foo
+          mountPath: /config
+  volumes:
+    - name: foo
+      configMap:
+        name: live-config-map
+
+
