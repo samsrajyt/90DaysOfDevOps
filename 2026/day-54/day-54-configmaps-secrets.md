@@ -94,4 +94,11 @@ Use environment variables for simple key-value settings. Use volume mounts for f
 4. Wait 30-60 seconds — the volume-mounted value updates automatically
 5. Environment variables from earlier tasks do NOT update — they are set at pod startup only
 
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-54/images/Screenshot%202026-04-15%20021355.png)
+
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-54/images/Screenshot%202026-04-15%20021417.png)
+
+
 **Verify:** Did the volume-mounted value change without a pod restart?
+  - Yes, the value changed without restarting Pod.
