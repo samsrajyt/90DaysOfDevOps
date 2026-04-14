@@ -23,6 +23,75 @@
 2. Create a ConfigMap from this file using `kubectl create configmap nginx-config --from-file=default.conf=<your-file>`
 3. The key name (`default.conf`) becomes the filename when mounted into a Pod
 
+
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-54/images/Screenshot%202026-04-14%20155743.png)
+
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-54/images/Screenshot%202026-04-14%20155757.png)
+
 **Verify:** Does `kubectl get configmap nginx-config -o yaml` show the file contents?
+  - Yes 
+
+---
+
+### Task 3: Use ConfigMaps in a Pod
+1. Write a Pod manifest that uses `envFrom` with `configMapRef` to inject all keys from `app-config` as environment variables. Use a busybox container that prints the values.
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-54/images/Screenshot%202026-04-14%20171046.png)
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-54/images/Screenshot%202026-04-14%20171105.png)
+
+2. Write a second Pod manifest that mounts `nginx-config` as a volume at `/etc/nginx/conf.d`. Use the nginx image.
+
+3. Test that the mounted config works: `kubectl exec <pod> -- curl -s http://localhost/health`
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-54/images/Screenshot%202026-04-14%20185233.png)
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-54/images/Screenshot%202026-04-14%20185058.png)
 
 
+Use environment variables for simple key-value settings. Use volume mounts for full config files.
+
+**Verify:** Does the `/health` endpoint respond?
+  - Yes.
+
+---
+
+### Task 4: Create a Secret
+1. Use `kubectl create secret generic db-credentials` with `--from-literal` to store `DB_USER=admin` and `DB_PASSWORD=s3cureP@ssw0rd`
+2. Inspect with `kubectl get secret db-credentials -o yaml` — the values are base64-encoded
+3. Decode a value: `echo '<base64-value>' | base64 --decode`
+
+**base64 is encoding, not encryption.** Anyone with cluster access can decode Secrets. The real advantages are RBAC separation, tmpfs storage on nodes, and optional encryption at rest.
+
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-54/images/Screenshot%202026-04-14%20191012.png)
+
+**Verify:** Can you decode the password back to plaintext?
+  - Yes
+
+---
+### Task 5: Use Secrets in a Pod
+1. Write a Pod manifest that injects `DB_USER` as an environment variable using `secretKeyRef`
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-54/images/Screenshot%202026-04-14%20215144.png)
+
+2. In the same Pod, mount the entire `db-credentials` Secret as a volume at `/etc/db-credentials` with `readOnly: true`
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-54/images/Screenshot%202026-04-14%20214443.png)
+
+3. Verify: each Secret key becomes a file, and the content is the decoded plaintext value
+
+**Verify:** Are the mounted file values plaintext or base64?
+  - Plaintext
+
+---
+
+### Task 6: Update a ConfigMap and Observe Propagation
+1. Create a ConfigMap `live-config` with a key `message=hello`
+2. Write a Pod that mounts this ConfigMap as a volume and reads the file in a loop every 5 seconds
+3. Update the ConfigMap: `kubectl patch configmap live-config --type merge -p '{"data":{"message":"world"}}'`
+4. Wait 30-60 seconds — the volume-mounted value updates automatically
+5. Environment variables from earlier tasks do NOT update — they are set at pod startup only
+
+**Verify:** Did the volume-mounted value change without a pod restart?
