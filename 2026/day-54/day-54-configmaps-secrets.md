@@ -102,3 +102,10 @@ Use environment variables for simple key-value settings. Use volume mounts for f
 
 **Verify:** Did the volume-mounted value change without a pod restart?
   - Yes, the value changed without restarting Pod.
+
+---
+
+### Task 7: Clean Up
+Delete all pods, ConfigMaps, and Secrets you created.
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-54/images/Screenshot%202026-04-15%20023251.png)
