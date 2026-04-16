@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: headless-service
+  labels:
+    app: nginx
+spec:
+  clusterIP: None
+  selector:
+    app: nginx
+

@@ -1,0 +1,42 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx
+  labels:
+    app_name: nginx-app
+spec:
+  clusterIP: None
+  selector:
+    app_name: nginx-app
+---
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: web
+spec:
+  selector:
+    matchLabels:
+      app_name: nginx-app
+  serviceName: "nginx"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app_name: nginx-app
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:1.29
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+  - metadata:
+      name: www
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "standard"
+      resources:
+        requests:
+          storage: 100Mi
+

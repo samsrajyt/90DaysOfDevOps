@@ -1,0 +1,10 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: test-pod
+spec:
+  containers:
+    - name: busybox-container
+      image: busybox:1.37
+      command: [ "/bin/sh", "-c", "nslookup web-0.nginx.default.svc.cluster.local; nslookup web-1.nginx.default.svc.cluster.local; nslookup web-2.nginx.default.svc.cluster.local;sleep 3600"]
+
