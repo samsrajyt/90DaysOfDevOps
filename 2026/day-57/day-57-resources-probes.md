@@ -68,8 +68,12 @@ A readiness probe controls traffic. Failure removes the Pod from Service endpoin
 4. Break the probe: `kubectl exec <pod> -- rm /usr/share/nginx/html/index.html`
 5. Wait 15 seconds — Pod shows `0/1` READY, endpoints are empty, but the container is NOT restarted
 
-**Verify:** When readiness failed, was the container restarted?
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-57/images/Screenshot%202026-04-17%20225333.png)
 
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-57/images/Screenshot%202026-04-17%20225525.png)
+
+**Verify:** When readiness failed, was the container restarted?
+  - No , the container was not restarted
 ---
 
 ### Task 6: Startup Probe
@@ -79,7 +83,16 @@ A startup probe gives slow-starting containers extra time. While it runs, livene
 2. Add a `startupProbe` checking for `/tmp/started` with `periodSeconds: 5` and `failureThreshold: 12` (60 second budget)
 3. Add a `livenessProbe` that checks the same file — it only kicks in after startup succeeds
 
-**Verify:** What would happen if `failureThreshold` were 2 instead of 12?
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-57/images/Screenshot%202026-04-18%20002312.png)
 
+**Verify:** What would happen if `failureThreshold` were 2 instead of 12?
+   - if `failureThreshold` were 2 then , the first check will start 5secs, the file is not created .The second check will be at 10 sec and the file will still not be created and the startup probe will fail and Because the Startup Probe failed, Kubernetes assumes the container is hung or broken. It will be killed and restarted.
+   - The Restart Loop: The Kubelet will terminate the container and try to start it again.
+   - The Infinite Cycle: The new container starts its 20-second sleep, fails at the 10-second mark again, and gets killed again.
+     Status: pod would eventually show a status of CrashLoopBackOff.
 ---
+### Task 7: Clean Up
+Delete all pods and services you created.
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-57/images/Screenshot%202026-04-18%20005723.png)
 
