@@ -43,3 +43,43 @@ Check `kubectl describe pod` for `Reason: OOMKilled` and `Exit Code: 137` (128 +
 **Verify:** What event message does the scheduler produce?
 
 ![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-57/images/Screenshot%202026-04-17%20181535.png)
+
+---
+
+### Task 4: Liveness Probe
+A liveness probe detects stuck containers. If it fails, Kubernetes restarts the container.
+
+1. Write a Pod manifest with a busybox container that creates `/tmp/healthy` on startup, then deletes it after 30 seconds
+2. Add a liveness probe using `exec` that runs `cat /tmp/healthy`, with `periodSeconds: 5` and `failureThreshold: 3`
+3. After the file is deleted, 3 consecutive failures trigger a restart. Watch with `kubectl get pod -w`
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-57/images/Screenshot%202026-04-17%20212833.png)
+
+**Verify:** How many times has the container restarted?
+  - It was restarted 5 times.
+---
+
+### Task 5: Readiness Probe
+A readiness probe controls traffic. Failure removes the Pod from Service endpoints but does NOT restart it.
+
+1. Write a Pod manifest with nginx and a `readinessProbe` using `httpGet` on path `/` port `80`
+2. Expose it as a Service: `kubectl expose pod <name> --port=80 --name=readiness-svc`
+3. Check `kubectl get endpoints readiness-svc` — the Pod IP is listed
+4. Break the probe: `kubectl exec <pod> -- rm /usr/share/nginx/html/index.html`
+5. Wait 15 seconds — Pod shows `0/1` READY, endpoints are empty, but the container is NOT restarted
+
+**Verify:** When readiness failed, was the container restarted?
+
+---
+
+### Task 6: Startup Probe
+A startup probe gives slow-starting containers extra time. While it runs, liveness and readiness probes are disabled.
+
+1. Write a Pod manifest where the container takes 20 seconds to start (e.g., `sleep 20 && touch /tmp/started`)
+2. Add a `startupProbe` checking for `/tmp/started` with `periodSeconds: 5` and `failureThreshold: 12` (60 second budget)
+3. Add a `livenessProbe` that checks the same file — it only kicks in after startup succeeds
+
+**Verify:** What would happen if `failureThreshold` were 2 instead of 12?
+
+---
+
