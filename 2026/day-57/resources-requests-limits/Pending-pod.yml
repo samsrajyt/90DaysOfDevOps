@@ -1,0 +1,13 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: some-pod
+spec:
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Gi"
+  containers:
+    - name: nginx
+      image: nginx:latest
+

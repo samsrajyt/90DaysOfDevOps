@@ -1,0 +1,16 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: live-probness-pod
+spec:
+  containers:
+    - name: busybox-container
+      image: busybox:latest
+      command: ["/bin/sh", "-c", "mkdir -p /tmp/healthy;sleep 30;rm -rf /tmp/healthy; sleep 3600"]
+      livenessProbe:
+        exec:
+          command: ["cat", "/tmp/healthy"]
+        periodSeconds: 5
+        failureThreshold: 3
+
+
