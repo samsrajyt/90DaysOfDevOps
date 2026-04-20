@@ -103,3 +103,13 @@ This scales up when average CPU exceeds 50% of requests, and down when it drops 
 
 **Verify:** What does the `behavior` section control?
      It controls the scaling up and scaling down Policies 
+
+
+
+---
+
+### Task 7: Clean Up
+Delete the HPA, Service, Deployment, and load-generator pod. Leave the Metrics Server installed.
+
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-58/images/Screenshot%202026-04-20%20233216.png)
