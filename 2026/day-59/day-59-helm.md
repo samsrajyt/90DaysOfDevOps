@@ -148,3 +148,19 @@ After installing
 After upgrading
 
 ![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-59/images/Screenshot%202026-04-21%20183427.png)
+
+---
+### Task 7: Clean Up
+1. Uninstall all releases: `helm uninstall <name>` for each
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-59/images/Screenshot%202026-04-21%20183755.png)
+
+2. Remove chart directory and values file
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-59/images/Screenshot%202026-04-21%20184429.png)
+
+3. Use `--keep-history` if you want to retain release history for auditing
+
+**Verify:** Does `helm list` show zero releases?
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-59/images/Screenshot%202026-04-21%20184114.png)
