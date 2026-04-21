@@ -107,3 +107,44 @@ Same concept as Deployment rollouts from Day 52, but at the full stack level.
    There are three revisions after rollback.
 
 
+
+---
+
+
+### Task 6: Create Your Own Chart
+1. Scaffold: `helm create my-app`
+2. Explore the directory: `Chart.yaml`, `values.yaml`, `templates/deployment.yaml`
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-59/images/Screenshot%202026-04-21%20172038.png)
+
+
+3. Look at the Go template syntax in templates: `{{ .Values.replicaCount }}`, `{{ .Chart.Name }}`
+4. Edit `values.yaml` — set replicaCount to 3 and image to nginx:1.25
+5. Validate: `helm lint my-app`
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-59/images/Screenshot%202026-04-21%20173554.png)
+
+6. Preview: `helm template my-release ./my-app`
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-59/images/Screenshot%202026-04-21%20180121.png)
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-59/images/Screenshot%202026-04-21%20180328.png)
+
+7. Install: `helm install my-release ./my-app`
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-59/images/Screenshot%202026-04-21%20182215.png)
+
+8. Upgrade: `helm upgrade my-release ./my-app --set replicaCount=5`
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-59/images/Screenshot%202026-04-21%20183046.png)
+
+**Verify:** After installing, 3 replicas? After upgrading, 5?
+
+After installing 
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-59/images/Screenshot%202026-04-21%20182935.png)
+
+
+After upgrading
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-59/images/Screenshot%202026-04-21%20183427.png)
