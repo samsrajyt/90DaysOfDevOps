@@ -20,11 +20,18 @@ A.
    Terraform vs CloudFormation 
    Terraform can handle multi cloud environment whereas AWS CloudFormation is only limited to AWS ecosystem
    The syntax language for terraform is HCL where cloud formation uses standard JSON or YAML.
-   CloudFormation handles and manages the state automatically whereas terraform requires you to handle and secure a backend ( An s3) to handle its state file.
+   CloudFormation handles and manages the state automatically whereas terraform requires you to handle and secure a backend ( An s3) to handle    its state file.
+
+   Terraform vs Ansible
+   Ansible is widely used for configuration management inside the VM which is created by terraform to install softwares , manage packages .
+   Terraform maintains the state i.e the snapshot of the architecture whereas Ansible is stateless, it connects to server over ssh and            executes a series of commands mentioned in playbooks. 
 
 
 6. What does it mean that Terraform is "declarative" and "cloud-agnostic"?
+   Cloud-agnostic means Terraform uses a single workflow, engine and language to manage multiple cloud providers though each cloud still          requires its own specific resource definitions within the codebase.
+   Declarative means you define the desired end state of your infrastructure and terraform figures out how to make it happen .
+   
 
-Write this in your own words -- not copy-pasted definitions.
+
 
 ---
