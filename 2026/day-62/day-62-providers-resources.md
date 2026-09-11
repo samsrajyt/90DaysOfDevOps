@@ -49,6 +49,7 @@ Answer these questions:
 - How does Terraform know to create the VPC before the subnet?
   It Creates a dependency graph and see that all the other resources need VPC first , hence VPC is created first. 
 - What would happen if you tried to create the subnet before the VPC existed?
+  A subnet requires a vpc id for it be created and the request would be rejected.
 - Find all implicit dependencies in your config and list them
    aws_vpc.my-vpc.id
    aws_internet_gateway.gw.id
@@ -56,3 +57,62 @@ Answer these questions:
   aws_route_table.rt.id
 
 ---
+
+### Task 4: Add a Security Group and EC2 Instance
+Add to your config:
+
+1. `aws_security_group` in the VPC:
+   - Ingress rule: allow SSH (port 22) from `0.0.0.0/0`
+   - Ingress rule: allow HTTP (port 80) from `0.0.0.0/0`
+   - Egress rule: allow all outbound traffic
+   - Tag: `"TerraWeek-SG"`
+
+2. `aws_instance` in the subnet:
+   - Use Amazon Linux 2 AMI for your region
+   - Instance type: `t2.micro`
+   - Associate the security group
+   - Set `associate_public_ip_address = true`
+   - Tag: `"TerraWeek-Server"`
+
+Apply and verify -- your EC2 instance should have a public IP and be reachable.
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-62/images/Screenshot%202026-09-12%20002154.png)
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-62/images/Screenshot%202026-09-12%20002215.png)
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-62/images/Screenshot%202026-09-12%20002326.png)
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-62/images/Screenshot%202026-09-12%20002427.png)
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-62/images/Screenshot%202026-09-12%20012628.png)
+
+
+### Task 5: Explicit Dependencies with depends_on
+Sometimes Terraform cannot detect a dependency automatically.
+
+1. Add a second `aws_s3_bucket` resource for application logs
+2. Add `depends_on = [aws_instance.main]` to the S3 bucket -- even though there is no direct reference, you want the bucket created only after the instance
+3. Run `terraform plan` and observe the order
+
+Now visualize the entire dependency tree:
+```bash
+terraform graph | dot -Tpng > graph.png
+```
+If you don't have `dot` (Graphviz) installed, use:
+```bash
+terraform graph
+```
+and paste the output into an online Graphviz viewer.
+
+**Document:** When would you use `depends_on` in real projects? Give two examples.
+
+
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-62/images/graphviz.svg)
+
+---
+
+### Task 6: Lifecycle Rules and Destroy
+1. Add a `lifecycle` block to your EC2 instance:
+```hcl
+lifecycle {
+  create_before_destroy = true
+}
+```
+2. Change the AMI ID to a different one and run `terraform plan` -- observe that Terraform plans to create the new instance before destroying the old one
+![](https://github.com/samsrajyt/90DaysOfDevOps/blob/master/2026/day-62/images/Screenshot%202026-09-12%20011318.png)
